@@ -1,10 +1,10 @@
 import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import useForm from "../Hooks/useForm";
-import { useDispatch } from "react-redux";
 import { actionFacebook, actionGoogle, actionLoginAsyn } from "../redux/actions/actionsLogin";
 import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { loginContainer } from "../Styles/Styles";
 const Login = () => {
   const dispatch = useDispatch();
   const [formValue, handleInputChange, reset] = useForm({
@@ -21,6 +21,10 @@ const Login = () => {
   };
   return (
     <div className="divLogin">
+      <loginContainer>
+      <h1>Bienvenido a la Tiendita</h1>
+      <h4>Inicia sesión para empezar a comprar</h4>
+      </loginContainer>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
@@ -67,10 +71,11 @@ const Login = () => {
           Facebook
         </Button>
       </Form>
-      <Button size="lg" variant="outline-warning" style={{ margin: "10px" }}>
+      <Button className="reg" size="lg" variant="outline-warning" style={{ margin: "10px", backgroundColor:  "#edd000", textAlign: "center",}}>
         <Link to="/register">Usuario Nuevo / Registrar</Link>
       </Button>
     </div>
+    
   );
 };
 
