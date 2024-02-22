@@ -1,7 +1,10 @@
 import { Field, Form, Formik } from "formik";
 import React from "react";
-import { FormLabel } from "react-bootstrap";
+import { Button, FormLabel } from "react-bootstrap";
 import * as Yup from "yup";
+import { useDispatch } from 'react-redux';
+import { actionRegisterAsync } from "../redux/actions/actionsRegisteruser";
+import { Link } from "react-router-dom";
 
 const RegisterFormik = () => {
   const SignupSchema = Yup.object().shape({
@@ -25,6 +28,15 @@ const RegisterFormik = () => {
       .oneOf([Yup.ref("pass"), "Los password No coinciden"])
       .required("Required"),
   });
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (values) => {
+    console.log(values);
+    dispatch(
+      actionRegisterAsync(values.email, values.pass, values.firstName, values.lastName)
+    );
+  }
   return (
     <div>
       <Formik
@@ -36,38 +48,38 @@ const RegisterFormik = () => {
           pass2: "",
         }}
         validationSchema={SignupSchema}
-        onSubmit={(values) => {
-          // same shape as initial values
-          console.log(values);
-        }}
+        onSubmit={handleSubmit}
       >
         {({ errors, touched }) => (
-          <Form>
-            <FormLabel>Nombre</FormLabel>
-            <Field name="firstName" />
-            {errors.firstName && touched.firstName ? (
-              <div>{errors.firstName}</div>
-            ) : null}
+         <Form style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+         <FormLabel style={{ fontSize: '18px', fontWeight: 'bold' }}>Nombre</FormLabel>
+         <Field name="firstName" style={{ padding: '5px' }} />
+         {errors.firstName && touched.firstName ? (
+           <div style={{ color: 'red', fontSize: '14px' }}>{errors.firstName}</div>
+         ) : null}
 
-            <FormLabel>Apellido</FormLabel>
-            <Field name="lastName" />
-            {errors.lastName && touched.lastName ? (
-              <div>{errors.lastName}</div>
-            ) : null}
+         <FormLabel style={{ fontSize: '18px', fontWeight: 'bold' }}>Apellido</FormLabel>
+         <Field name="lastName" style={{ padding: '5px' }} />
+         {errors.lastName && touched.lastName ? (
+           <div style={{ color: 'red', fontSize: '14px' }}>{errors.lastName}</div>
+         ) : null}
 
-            <FormLabel>Email</FormLabel>
-            <Field name="email" type="email" />
-            {errors.email && touched.email ? <div>{errors.email}</div> : null}
+         <FormLabel style={{ fontSize: '18px', fontWeight: 'bold' }}>Email</FormLabel>
+         <Field name="email" type="email" style={{ padding: '5px' }} />
+         {errors.email && touched.email ? <div style={{ color: 'red', fontSize: '14px' }}>{errors.email}</div> : null}
 
-            <FormLabel>Contraseña</FormLabel>
-            <Field name="pass" type="pass" />
-            {errors.pass && touched.email ? <div>{errors.pass}</div> : null}
+         <FormLabel style={{ fontSize: '18px', fontWeight: 'bold' }}>Contraseña</FormLabel>
+         <Field name="pass" type="password" style={{ padding: '5px' }} />
+         {errors.pass && touched.pass ? <div style={{ color: 'red', fontSize: '14px' }}>{errors.pass}</div> : null}
 
-            <FormLabel>Confirmar Contraseña</FormLabel>
-            <Field name="pass2" type="pass2" />
-            {errors.pass2 && touched.email ? <div>{errors.pass2}</div> : null}
+         <FormLabel style={{ fontSize: '18px', fontWeight: 'bold' }}>Confirmar Contraseña</FormLabel>
+         <Field name="pass2" type="password" style={{ padding: '5px' }} />
+         {errors.pass2 && touched.pass2 ? <div style={{ color: 'red', fontSize: '14px' }}>{errors.pass2}</div> : null}
 
-            <button type="submit">Submit</button>
+         <button type="submit" style={{ padding: '10px', background: 'blue', color: 'white', borderRadius: '5px', cursor: 'pointer' }}>Enviar</button>
+            <Button variant="outline-success" style={{ margin: "10px" }}>
+          <Link to="/login">Login</Link>
+        </Button>
           </Form>
         )}
       </Formik>

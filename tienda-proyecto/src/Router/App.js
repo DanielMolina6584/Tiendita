@@ -6,6 +6,7 @@ import PrivateRouter from "./PrivateRouter";
 import DashboarRouter from "./DashboarRouter";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import RegisterFormik from "../Components/RegisterFormik"
+import Informacion from "../Components/Informacion";
 
 const App = () => {
   
@@ -49,6 +50,7 @@ const App = () => {
             </PrivateRouter>
           }
         />
+            
       </Routes>
     </BrowserRouter>
   );
