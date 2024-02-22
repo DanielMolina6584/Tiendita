@@ -1,11 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './Router/App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/main.css"
+import { Provider } from "react-redux";
+import { store } from "./redux/store/store";
+import App from "./Router/App";
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <div style={{backgroundColor: "#C4C4C4", padding:'20px'}}>
+     <Provider store={store}>
     <App />
-  </React.StrictMode>
+  </Provider>
+  </div>
+ 
 );
